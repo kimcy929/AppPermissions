@@ -28,6 +28,7 @@ import database.Constant;
 public class PermissionDetailActivity extends AppCompatActivity {
 
     private FloatingActionButton fab;
+    private ActionBar actionBar;
 
     private ArrayList<String> perInfoData;
     private ArrayList<String> perInfoDataFiltered;
@@ -41,7 +42,7 @@ public class PermissionDetailActivity extends AppCompatActivity {
         getPerInfoData();
 
         setContentView(R.layout.activity_permission_detail);
-        ActionBar actionBar = getSupportActionBar();
+        actionBar = getSupportActionBar();
         actionBar.setTitle(title);
         try {
             PackageManager pm = getPackageManager();
@@ -61,8 +62,10 @@ public class PermissionDetailActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     fab.setVisibility(View.GONE);
+                    actionBar.setDisplayHomeAsUpEnabled(false);
                     takeScreenshot();
                     fab.setVisibility(View.VISIBLE);
+                    actionBar.setDisplayHomeAsUpEnabled(true);
                 }
             });
             ListPermissionAdapter adapter = new ListPermissionAdapter(
@@ -107,7 +110,6 @@ public class PermissionDetailActivity extends AppCompatActivity {
     }
 
     private void showBackArrow() {
-        ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
     }
