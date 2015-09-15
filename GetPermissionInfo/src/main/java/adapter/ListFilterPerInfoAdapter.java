@@ -71,10 +71,6 @@ public class ListFilterPerInfoAdapter extends ArrayAdapter<String> {
         private String item;
         private String filterQuery = "";
 
-        /*public FilterApp() {
-            allPermission = new ArrayList<>(ListAppAdapter.this.allApp);
-        }*/
-
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             // TODO Auto-generated method stub
