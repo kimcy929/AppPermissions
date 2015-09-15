@@ -51,8 +51,7 @@ public class ListFilterPerInfoAdapter extends ArrayAdapter<String> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         String perInfoName = getItem(position);
-        //perInfoName.substring(item.toUpperCase().lastIndexOf(".") + 1) short name
-        viewHolder.checkedTextView.setText(perInfoName);
+        viewHolder.checkedTextView.setText(perInfoName.substring(perInfoName.toUpperCase().lastIndexOf(".") + 1));
         if (perInfoSelected.contains(perInfoName)) {
             viewHolder.checkedTextView.setChecked(true);
         } else {
