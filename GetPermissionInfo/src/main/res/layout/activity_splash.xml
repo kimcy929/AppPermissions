@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context="com.kimcy929.app.permission.SplashActivity">
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/txtAppCount"
+        style="@style/BaseWrapContentStyle"
+        android:layout_centerInParent="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display4"
+        android:textColor="@android:color/white"
+        android:drawableTop="@mipmap/ic_launcher"
+        android:drawablePadding="@dimen/dimen_16dp"
+        android:text="0%"/>
+</RelativeLayout>

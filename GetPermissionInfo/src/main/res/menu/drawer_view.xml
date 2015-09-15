@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/actionPermission"
+            android:icon="@drawable/ic_security_black_24dp"
+            android:title="@string/permission" />
+
+        <item
+            android:id="@+id/actionSource"
+            android:icon="@drawable/ic_archive_black_24dp"
+            android:title="@string/Source" />
+
+        <item
+            android:id="@+id/actionFilter"
+            android:icon="@drawable/ic_filter_list_black_24dp"
+            android:title="@string/Filter" />
+
+        <item
+            android:id="@+id/actionSettings"
+            android:icon="@drawable/ic_settings_black_24dp"
+            android:title="@string/settings" />
+
+        <item
+            android:id="@+id/actionSupport"
+            android:icon="@drawable/ic_help_outline_black_24dp"
+            android:title="@string/Support" />
+
+    </group>
+</menu>

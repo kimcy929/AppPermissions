@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.AppCompatCheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/txtCheckedPerInfo"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/listPreferredItemHeight"
+    android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+    android:gravity="center_vertical"
+    android:paddingLeft="@dimen/dimen_16dp"
+    android:paddingRight="@dimen/dimen_16dp"
+    android:textAppearance="?attr/textAppearanceListItem" />

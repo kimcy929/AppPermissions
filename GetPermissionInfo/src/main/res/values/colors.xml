@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#ff4066</color>
+    <color name="colorHighLight">#FFFD22</color>
+
+    <color name="primary">@color/colorPrimary</color>
+    <color name="primary_dark">@color/colorPrimaryDark</color>
+    <color name="ripple">#F06292</color>
+    <color name="accent">@color/colorAccent</color>
+    <color name="accent_pressed">#C2185B</color>
+</resources>

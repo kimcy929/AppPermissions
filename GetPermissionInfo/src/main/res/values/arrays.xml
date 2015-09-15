@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="array_titles">
+        <item>ALL APP</item>
+        <item>CAN COST ME MONEY</item>
+        <item>CAN SEE PERSON INFO</item>
+        <item>CAN SEE LOCATION INFO</item>
+        <item>CAN USE CAMERA/AUDIO</item>
+        <item>CAN START ON BOOT</item>
+        <item>CAN CHANGE SYSTEM</item>
+    </string-array>
+</resources>
