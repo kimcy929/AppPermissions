@@ -2,10 +2,10 @@ package com.kimcy929.app.permission;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -30,7 +30,9 @@ public class MainActivity extends AppCompatActivity {
 
     private final int REQUEST_FILTER = 10;
     private int curPos;
+    private int menuId;
 
+    private boolean isPress = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
+                if (isPress)
+                    selectItem(menuId);
             }
         };
 
@@ -74,8 +78,9 @@ public class MainActivity extends AppCompatActivity {
         public void onBackStackChanged() {
             if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
                 curPos = R.id.actionPermission;
+                menuId = curPos;
                 navigationView.getMenu().getItem(0).setChecked(true);
-                toolbar.setTitle(navigationView.getMenu().getItem(0).getTitle());
+                toolbar.setTitle(getResources().getString(R.string.permission));
             }
         }
     };
@@ -91,17 +96,19 @@ public class MainActivity extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
+                isPress = true;
                 menuItem.setChecked(true);
                 toolbar.setTitle(menuItem.getTitle());
-                selectItem(menuItem.getItemId());
+                menuId = menuItem.getItemId();
+                drawerLayout.closeDrawers();
                 return true;
             }
         });
     }
 
-    private void selectItem(int id) {
+    private void selectItem(final int id) {
+        isPress = false;
         if (curPos == id && curPos != R.id.actionFilter) {
-            drawerLayout.closeDrawers();
             return;
         }
         curPos = id;
@@ -142,20 +149,11 @@ public class MainActivity extends AppCompatActivity {
                 transaction.commit();
                 break;
         }
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                drawerLayout.closeDrawers();
-            }
-        }, 265);
     }
 
     private void addFragmentToStack(FragmentTransaction transaction) {
-        //if (fm.getBackStackEntryCount() == 0) {
-            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-            transaction.addToBackStack(null);
-        //}
+        //transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        transaction.addToBackStack(null);
     }
 
     @Override
@@ -182,14 +180,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        fm.removeOnBackStackChangedListener(backStackChangedListener);
-    }
-
-    @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                drawerLayout.closeDrawers();
+                return false;
+            }
             if (fm.getBackStackEntryCount() > 0) {
                 cleanBackStack();
                 return false;
