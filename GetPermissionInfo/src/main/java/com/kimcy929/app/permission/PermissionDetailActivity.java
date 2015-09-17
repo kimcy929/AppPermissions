@@ -7,10 +7,9 @@ import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
@@ -61,8 +60,8 @@ public class PermissionDetailActivity extends AppCompatActivity {
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    fab.setVisibility(View.GONE);
                     actionBar.setDisplayHomeAsUpEnabled(false);
+                    fab.setVisibility(View.GONE);
                     takeScreenshot();
                     fab.setVisibility(View.VISIBLE);
                     actionBar.setDisplayHomeAsUpEnabled(true);
@@ -78,14 +77,20 @@ public class PermissionDetailActivity extends AppCompatActivity {
         Bitmap bitmap = getScreenBitmap(); // Get the bitmap
         if (bitmap != null) {
             try {
-                File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-                File file = new File(path, System.currentTimeMillis() + ".jpg");
-                path.mkdirs();//sure create folder
-                FileOutputStream outputStream = new FileOutputStream(file);
+                File path = new File(getFilesDir() + File.separator + "app_permissions_images");
+                if (!path.exists()) {
+                    path.mkdirs();
+                }
+                File file = new File(path, "temp_photo.jpg");
+                FileOutputStream outputStream = new FileOutputStream(file.getPath());
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
                 outputStream.close();
-                if (!TextUtils.isEmpty(file.getPath())) {
-                    sharePhoto(Uri.fromFile(file));
+                try {
+                    File imgPath = new File(getFilesDir(), "app_permissions_images");
+                    File newFile = new File(imgPath, "temp_photo.jpg");
+                    Uri contentUri = FileProvider.getUriForFile(this, "com.kimcy929.fileprovider", newFile);
+                    sharePhoto(contentUri);
+                } catch (Exception e) {
                 }
             } catch (IOException e) {
             }
@@ -96,6 +101,7 @@ public class PermissionDetailActivity extends AppCompatActivity {
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
         shareIntent.putExtra(Intent.EXTRA_STREAM, uriToImage);
+        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         shareIntent.setType("image/jpeg");
         startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.send_to)));
     }
